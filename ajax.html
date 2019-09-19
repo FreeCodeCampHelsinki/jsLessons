@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="getData()">Load</button>
+    <div id="response"></div>
+    <script>
+        var xml = null;
+
+        if(window.XMLHttpRequest)
+        {
+            xml = new XMLHttpRequest();
+        }
+        else
+        {
+            xml = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+
+        xml.onreadystatechange = function()
+        {
+            if(xml.readyState === 4)
+            {
+                var processedString = "<ul>";
+                var resp = JSON.parse(xml.responseText);
+                
+                resp.forEach(function(obj){
+                    processedString += "<li>" + obj.name + "</li>";
+                });
+
+                processedString += "</ul>";
+
+                document.getElementById('response').innerHTML = processedString;
+            }
+        }
+
+        function getData()
+        {
+            xml.open('GET','sample.txt');
+            xml.send(null);
+        }
+    </script>
+</body>
+</html>

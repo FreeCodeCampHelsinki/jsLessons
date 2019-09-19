@@ -24,11 +24,17 @@ Quantifiers
 {n,m} n to m times
 */
 
-var regex = /^\d{6}\-\d{3}[A-Z]$/;
+var regex = /^(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])\d{2}[\-A]\d{3}[0-9A-Z]$/;
 // var regex = new RegExp("^\d{6}\-\d{3}[A-Z]$");
 
 document.getElementById("clicker").onclick = function()
 {
-    if(regex.test(""))
-    {}
+    if(regex.test(document.getElementById('ssn').value))
+    {
+        document.getElementById('result').innerHTML = "Valid";
+    }
+    else
+    {
+        document.getElementById('result').innerHTML = "Invalid";
+    }
 }
