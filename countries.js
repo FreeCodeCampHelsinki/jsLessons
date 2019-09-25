@@ -1,0 +1,11 @@
+[
+    {"name":"Afghanistan"}
+    ,{"name":"Thailand"}
+    ,{"name":"Malaysia"}
+    ,{"name":"Finland"}
+    ,{"name":"Croatia"}
+    ,{"name":"Italy"}
+    ,{"name":"Albania"}
+    ,{"name":"Nepal"}
+    ,{"name":"Lithuania"}
+]

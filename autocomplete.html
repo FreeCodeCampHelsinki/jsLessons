@@ -5,9 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    
 </head>
 <body>
-    <input id="country" />
+    <input id="country" placeholder="" />
     <div id="selections"></div>
+    
+    <script>
+        function populateInput(name)
+        {
+            document.getElementById('country').value = name;
+            document.getElementById('selections').innerHTML = "";
+        }
+
+        window.onload = function()
+        {
+            var countriesXML = null;
+            var countries = null;
+
+            if(window.XMLHttpRequest)
+            {
+                countriesXML = new XMLHttpRequest();
+            }
+            else
+            {
+                countriesXML = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            countriesXML.onreadystatechange = function()
+            {
+                if(countriesXML.readyState === 4)
+                {
+                    //Do work here
+                    countries = JSON.parse(countriesXML.responseText);
+                }
+            }
+
+            countriesXML.open("POST","countries.js");
+            countriesXML.send(null);
+
+            var inputCountry = document.getElementById('country');
+            var divSelections = document.getElementById('selections');
+            
+            inputCountry.onkeyup = function()
+            {   
+                divSelections.innerHTML = '';
+                if(inputCountry.value !== '')
+                {
+                    divSelections.innerHTML = "<ul>";
+                    var strRegex = new RegExp(inputCountry.value,'i');
+                    countries.forEach(function(country){
+                        if(strRegex.test(country.name))
+                            divSelections.innerHTML += "<li onclick=\"populateInput(\'"+country.name+"\')\">" + country.name + "</li>";
+                    })
+                    divSelections.innerHTML += "</ul>";
+                }
+            }
+        }
+    </script>
 </body>
 </html>
